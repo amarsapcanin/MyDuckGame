@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.Display;
@@ -53,15 +54,43 @@ public class GameView extends View
         velocity = 15;
         duckFrame = 0;
         duckWidth = duck [0].getWidth();
+        random = new Random();
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {invalidate();}
+        };
+
+        Paint paint = new Paint();
+        paint.setColor( 0xFF000000 );
+        paint.setAntiAlias( true );
+        paint.setStrokeWidth( 10.0f );
 
     }
-
 
     @Override
-    protected void onDraw(Canvas canvas)
-    {
+    protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         canvas.drawBitmap(background, null, rect, null);
-        /*canvas.drawBitmap(duck[duckFrame], duck);*/
+        canvas.drawBitmap(duck[duckFrame],duckX,duckY,null);
+        duckFrame++;
+        if(duckFrame>8)
+        {
+            duckFrame=0;
+        }
+        duckX -= velocity;
+        if (duckX< -duckWidth)
+        {
+            duckX = duckWidth-random.nextInt(500);
+            duckY = random.nextInt(300);
+            velocity = 14+random.nextInt(17);
+        }
+        handler.postDelayed(runnable,UPDATE_MILLIS);
+
+        canvas.drawCircle( 0, height, height / 8, paint );
+
+        canvas.drawLine( 0, height, height / 5, height - height / 5, paint );
     }
 }
+
+

@@ -15,6 +15,21 @@
         android:onClick="startGame"
         />
 
+    <ImageButton
+        android:id="@+id/audioOff_btn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/audio_off1"
+        android:onClick="audioOff"/>
+
+    <ImageButton
+        android:id="@+id/audioOn_btn"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:background="@drawable/audi_on1"
+        android:onClick="audioOn"/>
+
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
